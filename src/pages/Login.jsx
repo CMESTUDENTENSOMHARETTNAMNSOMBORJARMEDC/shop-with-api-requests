@@ -24,13 +24,14 @@ const Login = () => {
     		setPassword('');
   		})
 	}
-
+	console.log('env' + import.meta.env.VITE_API);
 	//redirect if logged in
 	useEffect(_ => auth.token &&	navigate('/'));
 
 	return (
   	<div>
     	LOGIN
+    	<p>{import.meta.env.VITE_API}<p>
     	<p>{status}</p>
     	<p>{auth.token} {auth.user}</p>
   		<form onSubmit={handleSubmit}>
