@@ -4,14 +4,13 @@ import { authState } from '../stores/auth/atom'
 import { userInfoState } from '../stores/user/atom'
 import { useRecoilState } from 'recoil'
 
-const useUserActions = _ => {
+export const useUserActions = _ => {
   const [auth, setAuth] = useRecoilState(authState);
   const [userInfo, setUserInfo] = useRecoilState(userInfoState);
-  const URL = import.meta.env.VITE_API;
   const [status, setStatus] = useState('');
+  const URL = import.meta.env.VITE_API;
 
   const login = (user, pass) => {
-    console.log('logging in ' + user + ' ' + pass);
     const promise = axios.post(`${URL}/auth/login`, {
       username: user,
       password: pass,
@@ -25,7 +24,6 @@ const useUserActions = _ => {
   }
 
 	useEffect(_ => {
-  	console.log('getting role')
 		if (auth.token) {
       axios.get(`${URL}/users/${auth.userId}`)
       	.then(response => setAuth({...auth, role: response.data.role}));
@@ -44,7 +42,6 @@ const useUserActions = _ => {
     		console.log(response)
     		if (response.data.status === 'error') throw new Error('error');
     		setUserInfo(response.data);
-    		console.log('updaiting user')
   		})
 		return promise
 	}
@@ -63,5 +60,3 @@ const useUserActions = _ => {
 
 	return {login, logout, updateUser, addUser};
 }
-
-export default useUserActions;

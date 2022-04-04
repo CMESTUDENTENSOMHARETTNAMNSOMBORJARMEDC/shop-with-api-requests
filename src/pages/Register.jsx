@@ -1,8 +1,7 @@
 import { useState, useEffect } from 'react'
-import { useRecoilValue, useRecoilState } from 'recoil'
-import { authState } from '../stores/auth/atom.js'
-import { useUser } from '../hooks/useUser'
-import useUserActions from '../hooks/useUserActions'
+import { useRecoilState } from 'recoil'
+import { authState } from '../stores/auth/atom'
+import { useUserActions } from '../hooks/useUserActions'
 import { useNavigate } from 'react-router-dom'
 import '../styles.css'
 
@@ -34,17 +33,10 @@ const Register = _ => {
   const handleSubmit = e => {
     e.preventDefault();
     setUpdateStatus('loading');
-    // setRegistered(true);
     addUser(form)
   		.catch(error => {
     		setUpdateStatus('error');
   		})
-
-
-      // val.data.status === 'error'
-      	// ? setUpdateStatus('error')
-      	// : setUpdateStatus('success')
-    // })
   }
 
   const handleChange = e => {
@@ -56,12 +48,6 @@ const Register = _ => {
 			: value
     setForm({...form, [parts[0]]: update});
   }
-
-  useEffect(_ => {
-    console.log(updateStatus + ' status')
-    // updateStatus === 'success' && login(form.username, form.password);
-    // updateStatus === 'error' && setRegistered(false);
-  }, [updateStatus])
 
 	useEffect(_ => auth.token &&	navigate('/'));
 

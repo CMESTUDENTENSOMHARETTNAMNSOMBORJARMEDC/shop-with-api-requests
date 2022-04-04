@@ -1,10 +1,8 @@
 import { useState, useEffect } from 'react';
 import { authState } from '../stores/auth/atom'
-import { useRecoilState, useRecoilValue } from 'recoil'
-import useUserActions from '../hooks/useUserActions'
-import { useUser }from '../hooks/useUser'
+import { useRecoilState } from 'recoil'
+import { useUserActions } from '../hooks/useUserActions'
 import { useNavigate } from 'react-router-dom'
-
 
 const Login = () => {
   const [username, setUsername] = useState('');
@@ -24,27 +22,33 @@ const Login = () => {
     		setPassword('');
   		})
 	}
-	console.log('env' + import.meta.env.VITE_API);
 	//redirect if logged in
 	useEffect(_ => auth.token &&	navigate('/'));
 
 	return (
   	<div>
     	LOGIN
-    	<p>{import.meta.env.VITE_API}<p>
     	<p>{status}</p>
     	<p>{auth.token} {auth.user}</p>
   		<form onSubmit={handleSubmit}>
+  			<div>
+  			<label htmlFor="user">användarnamn</label>
         <input
+        	id="user"
           type="text"
           value={username}
           onChange={(e) => setUsername(e.target.value)}
         />
+        </div>
+        <div>
+  			<label htmlFor="password">lösenord</label>
         <input
+        	id="password"
           type="password"
           value={password}
           onChange={(e) => setPassword(e.target.value)}
         />
+        </div>
         <button type="submit">Logga in</button>
     	</form>
   	</div>

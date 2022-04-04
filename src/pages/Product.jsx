@@ -1,14 +1,14 @@
 import axios from 'axios'
 import { useEffect, useState } from 'react'
 import { useParams } from "react-router-dom"
-import { useRecoilState } from 'recoil'
-import cartState from '../stores/cart/atom'
+import { useSetRecoilState } from 'recoil'
+import { cartState } from '../stores/cart/atom'
 import { addItemSelector } from '../stores/cart/selectors'
 import '../styles.css'
 
 const Product = () => {
 	const params = useParams();
-	const [_, addItem] = useRecoilState(addItemSelector);
+	const addItem = useSetRecoilState(addItemSelector);
   const [quantity, setQuantity] = useState(1);
 	const [addStatus, setAddStatus] = useState('');
 	const [status, setStatus] = useState('');
@@ -17,7 +17,6 @@ const Product = () => {
   const URL = import.meta.env.VITE_API;
 
 	useEffect(e => {
-  	console.log('single item ' + params.id)
   	setStatus('loading');
     axios.get(`${URL}/products/${params.id}`)
   		.then(response => {
@@ -29,9 +28,7 @@ const Product = () => {
     		setError('error');
     		console.log('error')
   		})
-
 	}, [params.id])
-
 
 	const handleAdd = (value) => {
 		const validatedValue = parseInt(value);

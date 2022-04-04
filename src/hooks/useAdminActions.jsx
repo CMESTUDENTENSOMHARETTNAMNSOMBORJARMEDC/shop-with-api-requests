@@ -3,13 +3,13 @@ import { productsState } from '../stores/products/atom'
 import { useSetRecoilState } from 'recoil'
 import { useState } from 'react'
 
-const useAdminActions = _ => {
+export const useAdminActions = _ => {
   const { products, setProducts } =  useSetRecoilState(productsState);
+  const [status, setStatus] = useState('');
   const URL = import.meta.env.VITE_API;
 
   const updateProduct = (id, updatedProductInfo) => {
-    const [status, setStatus] = useState('');
-    setStatus('loading'),
+    setStatus('updating'),
     axios.put(`${URL}/products/${id}`, updatedProductInfo)
   		.then(response => {
     		console.log(response)
@@ -24,7 +24,7 @@ const useAdminActions = _ => {
 
 	const removeProduct = id => {
     const [status, setStatus] = useState('');
-    setStatus('loading'),
+    setStatus('removing'),
     axios.delete(`${URL}/products/${id}`)
   		.then(response => {
     		console.log(response)
@@ -39,6 +39,3 @@ const useAdminActions = _ => {
 
 	return {updateProduct, removeProduct};
 }
-
-
-export default useUserActions;

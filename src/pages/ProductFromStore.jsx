@@ -1,15 +1,15 @@
 import axios from 'axios'
 import { useEffect, useState } from 'react'
 import { useParams } from "react-router-dom"
-import { useRecoilValue, useRecoilState } from 'recoil'
-import cartState from '../stores/cart/atom'
+import { useRecoilValue, useSetRecoilState } from 'recoil'
+import { cartState } from '../stores/cart/atom'
 import { productsState } from '../stores/products/atom'
 import { addItemSelector } from '../stores/cart/selectors'
 import '../styles.css'
 
 const ProductFromStore = () => {
 	const params = useParams();
-	const [_, addItem] = useRecoilState(addItemSelector);
+	const addItem = useSetRecoilState(addItemSelector);
 	const products = useRecoilValue(productsState);
   const [quantity, setQuantity] = useState(1);
 	const [addStatus, setAddStatus] = useState('');
@@ -22,7 +22,6 @@ const ProductFromStore = () => {
   	console.log('single item ' + params.id)
 		setProduct(products.find(product => product.id == params.id));
 	}, [params.id])
-
 
 	const handleAdd = (value) => {
 		const validatedValue = parseInt(value);
@@ -60,4 +59,3 @@ const ProductFromStore = () => {
 }
 
 export default ProductFromStore
-

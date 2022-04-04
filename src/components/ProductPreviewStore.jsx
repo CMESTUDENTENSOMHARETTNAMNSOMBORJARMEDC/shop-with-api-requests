@@ -1,12 +1,11 @@
 import { Link } from 'react-router-dom';
-import { useRecoilState } from 'recoil';
-import { cartState } from '../stores/cart/atom.js';
+import { useSetRecoilState } from 'recoil';
 import { addItemSelector } from '../stores/cart/selectors';
 import '../styles.css';
 
 const ProductPreviewStore = props => {
 	const { id, title, image, price } = props.data;
-	const [__, addItem] = useRecoilState(addItemSelector);
+	const addItem = useSetRecoilState(addItemSelector);
   return (
     <div className="product">
       <Link to={`/productstore/${id}`}>

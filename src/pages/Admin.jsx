@@ -1,12 +1,10 @@
 import { Link } from 'react-router-dom'
 import { useEffect } from 'react'
 import { useRecoilValue, useRecoilState } from 'recoil'
-import { useAdmin }from '../hooks/useAdmin'
-import { useProducts } from '../hooks/useProducts'
 import { usersState } from '../stores/users/atom'
 import { productsState } from '../stores/products/atom'
 import { cartsState } from '../stores/carts/atom'
-import { cartOwnerSelector } from '../stores/carts/selectors'
+import { useAdmin } from '../hooks/useAdmin'
 import ProductEditView from '../components/ProductEditView'
 
 const Admin = _ => {
@@ -18,24 +16,7 @@ const Admin = _ => {
     products,
     productsStatus
   } = useAdmin();
-	// const { result, status } = useProducts();
-	// const usersList = useRecoilValue(usersState);
-	// const products = useRecoilValue(productsState);
-	// const cartsList = useRecoilValue(cartsState);
-	// const [cartOwner, ___] = useRecoilState(cartOwnerSelector);
-	// const cartOwner = useRecoilValue(cartOwnerSelector);
-	// console.log(cartOwner)
-	// const userss = users();
 	const NONPRODUCT = {id: -1, title: 'försvunnen vara'};
-
-  useEffect(_ => {
-		// users();
-		// carts();
-		console.log(cartsStatus);
-		console.log(carts);
-  }, [cartsStatus]);
-
-
 
 	const cartOwner = id => {
   	return users.length
@@ -47,7 +28,6 @@ const Admin = _ => {
   	const product = products.find(product => product.id == id);
   	return product || NONPRODUCT;
 	}
-
 
 	return(
     <div>
@@ -73,7 +53,7 @@ const Admin = _ => {
                     <ul>
                       {cart.products.map(item => {
                         return (
-                          <li key={item._id}>
+                          <li key={item.id}>
                             {item.quantity} st: {productById(item.productId).title}
                           </li>
                         )
@@ -85,11 +65,8 @@ const Admin = _ => {
               })
   					)
       }
-
-
       <h2>produkter</h2>
  			<Link to="/productsstore">Produkter</Link>
-
       {
       productsStatus !== 'success'
 					? <div>{productsStatus}</div>
@@ -98,14 +75,9 @@ const Admin = _ => {
                 return <ProductEditView key={product.id} data={product} />
               })
             )
-
       }
-
-
     </div>
   )
 }
 
 export default Admin
-
-

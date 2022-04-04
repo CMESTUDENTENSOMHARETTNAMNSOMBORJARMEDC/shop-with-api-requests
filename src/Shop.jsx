@@ -1,9 +1,8 @@
-import { useEffect } from 'react'
-import { useSetRecoilState, useRecoilValue } from 'recoil'
 import logo from './logo.svg'
 import './App.css'
-
-import { Routes, Route, useNavigate } from 'react-router-dom'
+import { useEffect } from 'react'
+import { Routes, Route } from 'react-router-dom'
+import { useSetRecoilState, useRecoilValue } from 'recoil'
 
 import Products from './pages/Products'
 import ProductsFromStore from './pages/ProductsFromStore'
@@ -16,14 +15,10 @@ import Profile from './pages/Profile'
 import Navigation from './partials/Navigation'
 import Home from './pages/Home.jsx'
 import Admin from './pages/Admin.jsx'
-
 import { authState } from './stores/auth/atom'
-import { productsState } from './stores/products/atom'
-import { useProducts } from './hooks/useProducts'
 
 const Shop = () => {
 	const auth = useRecoilValue(authState);
-	const navigate = useNavigate();
 
   return (
     <>
@@ -48,7 +43,6 @@ const Shop = () => {
       {auth.role === 'admin' &&
         <Route path="/admin" element={<Admin />} />
       }
-
     </Routes>
     </>
   )

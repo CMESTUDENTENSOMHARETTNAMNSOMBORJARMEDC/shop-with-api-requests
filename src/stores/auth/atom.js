@@ -13,7 +13,6 @@ const localStorageEffect = key => ({setSelf, onSet}) => {
   });
 };
 
-
 export const authState = atom({
   key: 'authState',
   default: {

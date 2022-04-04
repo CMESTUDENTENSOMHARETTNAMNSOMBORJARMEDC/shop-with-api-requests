@@ -11,7 +11,6 @@ const Products = (props) => {
 	const [select, setSelect] = useState('all')
 	const [status, setStatus] = useState('')
 	const [products, setProducts] = useRecoilState(productsState);
-
   const URL = import.meta.env.VITE_API;
 
 	useEffect(e => {
@@ -19,11 +18,9 @@ const Products = (props) => {
   		.then(response => {
     		setCategories(response.data);
   		})
-		console.log('loading cats')
 	},[props.id])
 
 	useEffect(e => {
-  	console.log('selecting ' + select)
   	setStatus('loading');
   	const url = select === 'all'
   	 ? `${URL}/products/`
@@ -53,7 +50,7 @@ const Products = (props) => {
         <option value="all">--Alla--</option>
       	{
         	categories.map(cat => {
-          	return <option value={cat} key={cat.id}>{cat}</option>
+          	return <option value={cat} key={cat}>{cat}</option>
         	})
       	}
       </select>
@@ -70,4 +67,3 @@ const Products = (props) => {
 }
 
 export default Products
-

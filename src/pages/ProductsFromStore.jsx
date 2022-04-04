@@ -68,5 +68,3 @@ const ProductsFromStore = (props) => {
 }
 
 export default ProductsFromStore
-
-

@@ -18,4 +18,3 @@ export const cartState = atom({
 })
 
 
-export default cartState;

@@ -14,9 +14,6 @@ export const useAdmin = _ => {
   const [users, setUsers] = useRecoilState(usersState);
   const [products, setProducts] = useRecoilState(productsState);
   const [carts, setCarts] = useRecoilState(cartsState);
-
-  // const [users_, setUsers] = useRecoilState(usersState);
-  // const [carts_, setCarts] = useRecoilState(cartsState);
   const URL = import.meta.env.VITE_API;
 
 	const getProducts = _ => {
@@ -59,7 +56,6 @@ export const useAdmin = _ => {
 	}
 
   useEffect(_ => {
-    console.log('running')
 		getCarts();
 		getProducts();
 		getUsers();

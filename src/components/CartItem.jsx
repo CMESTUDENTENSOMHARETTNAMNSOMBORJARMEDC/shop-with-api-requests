@@ -1,15 +1,13 @@
 import { Link } from 'react-router-dom'
-import { useRecoilState} from 'recoil'
+import { useRecoilState, useSetRecoilState } from 'recoil'
 import { addItemSelector, removeItemSelector, decreaseItemSelector } from '../stores/cart/selectors'
 import '../styles.css'
 
 
 const CartItem = (props) => {
-  // console.log(addItemSelector)
-	const [_, addItem] = useRecoilState(addItemSelector);
-	const [__, removeItem] = useRecoilState(removeItemSelector);
-	const [___, decreaseItem] = useRecoilState(decreaseItemSelector);
-
+	const addItem = useSetRecoilState(addItemSelector);
+	const removeItem = useSetRecoilState(removeItemSelector);
+	const decreaseItem = useSetRecoilState(decreaseItemSelector);
   const { quantity, id, image, description, title, price } = props.item;
 
 	return (

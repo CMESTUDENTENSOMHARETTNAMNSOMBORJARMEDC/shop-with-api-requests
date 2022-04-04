@@ -1,19 +1,13 @@
-import { selector, selectorFamily } from 'recoil';
-import cartState from './atom';
-// import cartReducer from '.../hooks/useReducer';
-// import useReducer from '.../hooks/useReducer.js';
+import { selector } from 'recoil';
+import { cartState } from './atom';
 
-
-const cartStatus = selector({
+export const cartStatus = selector({
   key: 'cartStatus',
   get: ({ get }, priceInfo) => {
-    
     const cart = get(cartState);
-
     const totalItems = cart.reduce((total, current) => {
 			return total + current.quantity;
     }, 0);
-
     return {
       totalItems
     }
@@ -36,7 +30,6 @@ export const decreaseItemSelector = selector({
   }
 })
 
-
 export const addItemSelector = selector({
   key: 'AddItemSelector',
   get: () => {},
@@ -46,16 +39,6 @@ export const addItemSelector = selector({
 })
 
 const cartHelper = (state, { id, quantity }) => {
-  // const pipeline = [
-  //   _ => {
-  //   	const p = state.find(p => p.id === id)
-  //   	return p
-  //   		?	[{id, quantity: p.quantity + quantity}]
-  //   		: [{id, quantity}]
-  //   },
-  //   _ => state.filter(prod => prod.id !== id)
-  // ];
-  // return pipeline.reduce((carry, func) => [...carry, ...func()], []);
 	return state.some(product => product.id === id)
 		?	state.map(product => {
     		return product.id === id
@@ -63,8 +46,6 @@ const cartHelper = (state, { id, quantity }) => {
     			: product
   		})
   	: [{id, quantity}, ...state];
-
-
 }
 
 const cartReducer = (state, action) => {
@@ -86,4 +67,3 @@ const cartReducer = (state, action) => {
 }
 
 
-export default cartStatus;

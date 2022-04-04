@@ -1,8 +1,8 @@
 import { Link } from 'react-router-dom'
-import { useRecoilState, useRecoilValue } from 'recoil'
-import cartStatus from '../stores/cart/selectors'
+import { useRecoilValue } from 'recoil'
+import { cartStatus } from '../stores/cart/selectors'
 import { authState } from '../stores/auth/atom'
-import useUserActions from '../hooks/useUserActions'
+import { useUserActions } from '../hooks/useUserActions'
 import '../styles.css'
 
 const Navigation = () => {

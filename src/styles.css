@@ -48,7 +48,6 @@
   height: 10em;
 }
 .cartButton {
-
 }
 .cartProductCard {
   border-bottom: solid;
@@ -57,10 +56,21 @@
   min-width: 200px;
   max-width: 300px;
   padding: 0.4em;
-
 }
 .cartOptions {
-	display: flex;
-	flex-direction: row;
-	align-items: flex-start;
+  display: flex;
+  flex-direction: row;
+  align-items: flex-start;
+}
+.remove {
+  cursor: pointer;
+}
+.edit {
+  cursor: pointer;
+}
+.remove:hover {
+  color: indianred;
+}
+.edit:hover {
+  color: chartreuse;
 }

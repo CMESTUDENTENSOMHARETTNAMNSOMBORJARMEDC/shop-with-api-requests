@@ -1,17 +1,18 @@
+import axios from 'axios'
 import { useState, useEffect } from 'react'
 import { useRecoilValue, useRecoilState } from 'recoil'
 import { authState } from '../stores/auth/atom.js'
 import { userInfoState } from '../stores/user/atom.js'
-import { useUser } from '../hooks/useUser'
-import useUserActions from '../hooks/useUserActions'
+import { useUserActions } from '../hooks/useUserActions'
 import '../styles.css'
 
-const Profile = _ => {
+const Profile = (props) => {
   const auth = useRecoilValue(authState);
   const [userInfo, setUserInfo] = useRecoilState(userInfoState);
-	const { result, status } = useUser(auth.userId);
 	const { updateUser } = useUserActions();
 	const [updateStatus, setUpdateStatus] = useState('');
+	const [status, setStatus] = useState('');
+  const URL = import.meta.env.VITE_API;
 	const [form, setForm] = useState({
     email:'',
     username:'',
@@ -34,7 +35,6 @@ const Profile = _ => {
     setUpdateStatus('...uppdaterar');
     updateUser(5, form)
     	.then(_ => {
-      	console.log('updated')
       	setUpdateStatus('uppdaterad')
     	})
   		.catch(error => {
@@ -53,18 +53,26 @@ const Profile = _ => {
   }
 
   useEffect(_ => {
-    console.log(status)
-    if (status === 'success') {
-      setForm(result)
-      setUserInfo(result)
-    }
-    console.log(result)
-  }, [status])
+  	setStatus('loading');
+    axios.get(`${URL}/users/${auth.userId}`)
+  		.then(response => {
+    		setStatus('success');
+        setUserInfo(response.data);
+        setForm(response.data);
+  		})
+  		.catch(error => {
+    		setStatus('error');
+    		console.log(error);
+  		})
+  }, [props.id])
 
   useEffect(_ => {
     setTimeout(() => {setUpdateStatus('')}, 5000);
   }, [updateStatus])
 
+	if (status !== 'success') {
+  	return <div>{status}</div>
+	}
 
   return (
     <div>
